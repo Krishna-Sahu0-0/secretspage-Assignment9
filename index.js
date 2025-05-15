@@ -6,8 +6,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/secrets");
+require('dotenv').config();
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGO_URI);
 const trySchema = new mongoose.Schema({
     email: String,
     password: String
