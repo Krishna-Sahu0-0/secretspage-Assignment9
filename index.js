@@ -24,6 +24,11 @@ app.post("/register", async function (req, res) {
     const email = req.body.username;
     const password = req.body.password;
 
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        return res.send("Password must be at least 8 characters long and include at least one number and one special character.");
+    }
+
     try {
         const existingUser = await item.findOne({ email: email });
         if (existingUser) {
